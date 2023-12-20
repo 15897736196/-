@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-color: rgb(39, 39, 39);
+        }
+        .coin {
+            width: 80px;
+            height: 80px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50%;
+            margin: 20px;
+            cursor: pointer;
+            /* background-image: url("./阴阳-太极02.svg"); */
+            background-size: cover;
+            /* transform: rotate(10deg); */
+        }
+        .animate{
+            animation: rotate 0.3s linear infinite;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+    <title>Rotating Coins</title>
+</head>
+<body>
+    <div style="margin-top: 50vh;">
+        <div>
+            <div id="showNum" style="width: 50px;height: 50px;color: white; font-size: 20px; font-weight: bold;text-align: center; margin: 0 auto;"></div>
+        </div>
+        <div id="box" style="display: flex;justify-content: space-around;flex-direction: row;margin-top: 24px;">
+            <div class="coin" id="coin1" ></div>
+            <div class="coin" id="coin2" ></div>
+            <div class="coin" id="coin3" ></div>
+        </div>
+    </div>
+    <div style="width: 50px;height: 50px;color: white; font-size: 20px; font-weight: bold;text-align: center; margin: 48px auto;" onclick="reset()">reset</div>
+    <script>
+        var result = []
+        var count = 0
+        var box = document.getElementById('box');
+        var coin1 = document.getElementById('coin1');
+        var coin2 = document.getElementById('coin2');
+        var coin3 = document.getElementById('coin3');
+        var showNum = document.getElementById('showNum');
+        function switchAnimate(){
+            if(coin1.classList.contains('animate')){
+                coin1.classList.remove('animate')
+                coin2.classList.remove('animate')
+                coin3.classList.remove('animate')
+                return false
+            }else {
+                coin1.classList.add('animate')
+                coin2.classList.add('animate')
+                coin3.classList.add('animate')
+                return true
+            }
+        }
+        box.addEventListener('click', function(e) {
+            var isPlay = switchAnimate()
+            if(isPlay) return
+            if(count >= 6){
+                alert('已经获得六个数字了，快去找陈斯贻吧')
+                return
+            }
+            var timeStamp = new Date().getTime()
+            var str = (timeStamp + '').slice(-3)
+            var arr = str.split('')
+            console.log(arr)
+            var target = e.target;
+            var length = arr.filter(val => (val*1 === 0 || val*1 % 2 === 0)).length
+            result.push(length)
+            count++
+            showNum.innerHTML = result.join('')
+        });
+        function reset(){
+            console.log(">>>>>>>>")
+            count = 0
+            result = []
+            showNum.innerHTML = result.join('')
+        }
+        // function toggleRotation(coinId) {
+        //     const coin = document.getElementById(coinId);
+        //     const isRotating = coin.style.animationPlayState === 'running';
+            
+        //     if (isRotating) {
+        //         coin.style.animationPlayState = 'paused';
+        //     } else {
+        //         coin.style.animationPlayState = 'running';
+        //     }
+
+        //     setRandomDirection(coinId);
+        // }
+
+        // function setRandomDirection(coinId) {
+        //     const coin = document.getElementById(coinId);
+        //     const randomDirection = Math.random() < 0.5 ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        //     coin.style.transform = randomDirection;
+        // }
+    </script>
+</body>
+</html>
