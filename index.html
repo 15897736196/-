@@ -10,16 +10,24 @@
         .coin {
             width: 80px;
             height: 80px;
-            background-color: rgb(255, 255, 255);
-            border-radius: 50%;
-            margin: 20px;
+            /* background-color: rgb(255, 255, 255); */
+            /* border-radius: 50%; */
+            /* margin: 12px; */
             cursor: pointer;
-            /* background-image: url("./阴阳-太极02.svg"); */
+            background-image: url("./太极\ \(1\).svg");
             background-size: cover;
-            /* transform: rotate(10deg); */
+            /* transform: rotate(-20deg); */
         }
         .animate{
             animation: rotate 0.3s linear infinite;
+        }
+        .top{
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+            background-image: url("./八卦.svg");
+            background-size: cover;
+            transform: rotate(90deg);
         }
         @keyframes rotate {
             from {
@@ -33,7 +41,8 @@
     <title>Rotating Coins</title>
 </head>
 <body>
-    <div style="margin-top: 50vh;">
+    <div class="top"></div>
+    <div style="margin-top: 30vh;">
         <div>
             <div id="showNum" style="width: 50px;height: 50px;color: white; font-size: 20px; font-weight: bold;text-align: center; margin: 0 auto;"></div>
         </div>
@@ -66,12 +75,12 @@
             }
         }
         box.addEventListener('click', function(e) {
-            var isPlay = switchAnimate()
-            if(isPlay) return
             if(count >= 6){
                 alert('已经获得六个数字了，快去找陈斯贻吧')
                 return
             }
+            var isPlay = switchAnimate()
+            if(isPlay) return
             var timeStamp = new Date().getTime()
             var str = (timeStamp + '').slice(-3)
             var arr = str.split('')
